@@ -1,0 +1,26 @@
+# Ignore Python cache files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Ignore log files
+*.log
+
+# Ignore virtual environment directory
+env/
+
+# Ignore environment variable files
+.env
+
+# Ignore IDE-specific files and directories
+.vscode/
+
+# Ignore directories for static files
+static/
+media/
+node_modules/
+
+# Ignore configuration files containing API keys and passwords
+*.pem
+*.key

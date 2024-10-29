@@ -1,0 +1,25 @@
+<!-- templates/accounts/login.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+  <title>Control Panel Login</title>
+</head>
+<body>
+  <div id="container">
+    <div id="login_bg">
+      <div id="login_form">
+        <p id="login_text">Log In</p>
+        <form id="input_fields" action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <input class="input_field" type="text" name="username" id="username" placeholder="Username" required>
+            <input class="input_field" type="password" name="password" id="password" placeholder="Password" required>
+            <input id="submit_button" type="submit" value="START">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
