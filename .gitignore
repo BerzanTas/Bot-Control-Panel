@@ -17,7 +17,7 @@ env/
 .vscode/
 
 # Ignore directories for static files
-static/
+/static
 media/
 node_modules/
 
