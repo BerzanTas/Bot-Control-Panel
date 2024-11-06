@@ -35,7 +35,6 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost'])
 
-LOGIN_URL = 'login'
 
 # Application definition
 
@@ -147,3 +146,9 @@ CSRF_TRUSTED_ORIGINS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+LOGIN_URL = '/accounts/login'
+
+# Session
+SESSION_COOKIE_AGE = 86400 # session time
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # end session after browser is closed

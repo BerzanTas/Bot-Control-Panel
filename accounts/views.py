@@ -11,12 +11,13 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('/')
         else:
             messages.error(request, 'Wrong username or password.')
+
     return render(request, 'accounts/login.html')
 
 
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('/')

@@ -1,11 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME</title>
+    <title>Control Panel</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'control_panel/home.css' %}">
 </head>
 <body>
-    <button onclick="">START POKEBOT</button>
+    <div id="wrapper">
+        <div id="main_app">
+            <a href="{% url 'accounts:logout' %}"><button type="submit" id="logout_button">Logout</button></a>
+            
+            <form method="POST" action="{% url 'run_pokebot' %}">
+                {% csrf_token %}
+                <input type="text">
+                <input type="text">
+                <input type="text" name="" id="">
+                <button type="submit">Run PokeBot</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

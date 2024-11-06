@@ -12,11 +12,11 @@
     <div id="login_bg">
       <div id="login_form">
         <p id="login_text">Log In</p>
-        <form id="input_fields" action="{% url 'login' %}" method="POST">
+        <form id="input_fields" action="{% url 'accounts:login' %}" method="POST">
             {% csrf_token %}
             <input class="input_field" type="text" name="username" id="username" placeholder="Username" required>
             <input class="input_field" type="password" name="password" id="password" placeholder="Password" required>
-            <input id="submit_button" type="submit" value="START">
+            <button id="submit_button" type="submit">START</button>
         </form>
       </div>
     </div>
