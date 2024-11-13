@@ -5,12 +5,27 @@
     <meta charset="UTF-8">
     <title>Control Panel</title>
     <link rel="stylesheet" type="text/css" href="{% static 'control_panel/home.css' %}">
+    <script>
+        function toggleBot() {
+            fetch('/run-pokebot/', {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'started') {
+                    document.getElementById('pokebot-status').innerText = "PokeBot jest uruchomiony";
+                } else if (data.status === 'stopped') {
+                    document.getElementById('pokebot-status').innerText = "PokeBot został zatrzymany";
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div id="wrapper">
         <div id="main_app">
             <a href="{% url 'accounts:logout' %}"><button type="submit" id="logout_button">Logout</button></a>
-            
+            <p id="pokebot-status">PokeBot nie jest uruchomiony</p>
             <form method="POST" action="{% url 'run_pokebot' %}">
                 {% csrf_token %}
                 <input type="text">

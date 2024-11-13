@@ -24,3 +24,5 @@ node_modules/
 # Ignore configuration files containing API keys and passwords
 *.pem
 *.key
+
+selenium

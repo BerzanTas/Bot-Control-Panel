@@ -12,21 +12,36 @@ def home(request):
 
 @login_required
 def run_pokebot(request):
-    global selenium_process
-    if request.method == 'POST':
-        # Running selenium in seperate process
-        if selenium_process is None:
-            try:
-                python_path = '/home/ubuntu/django/env/bin/python3'
-                selenium_process = subprocess.Popen([python_path, '/home/ubuntu/poke_bot.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                output, errors = selenium_process.communicate()
+    global bot_process
 
-                if selenium_process.returncode == 0:
-                    return JsonResponse({'status': 'PokeBot started', 'output': output.decode()})
-                else:
-                    return JsonResponse({'status': 'Error executing script', 'errors': errors.decode()})
-            except Exception as e:
-                return JsonResponse({'status': 'Failed to run script', 'error': str(e)})
+    try:
+        if request.session.get('bot_running', False) and bot_process is not None:
+            # Stop the bot if it is urnning
+            bot_process.terminate()
+            bot_process = None
+            request.session['bot_running'] = False
+            return JsonResponse({'status': 'stopped'})
         else:
-            return JsonResponse({'status': 'PokeBot is already running'})
-    return JsonResponse({'status': 'Invalid request'})
+            # Run the bot
+            print("Running the pokebot...")
+
+            bot_process = subprocess.run(
+                ['python3', '/home/ubuntu/django/selenium/pokebot.py'],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+
+            # Read the output
+            stdout, stderr = bot_process.communicate()
+
+            if stdout:
+                print(f"Bot output: {stdout.decode('utf-8')}")
+            if stderr:
+                print(f"Bot error: {stderr.decode('utf-8')}")
+
+            request.session['bot_running'] = True
+            return JsonResponse({'status': 'started'})
+    except Exception as e:
+        print("Error while running the pokebot:", e)
+        print(traceback.format_exc())
+        return JsonResponse({'status': 'error', 'message': str(e)})
